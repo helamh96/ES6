@@ -1,0 +1,9 @@
+.title{
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 300%;
+    text-align: center;
+}
+
+span{
+    background-color: yellow;
+}

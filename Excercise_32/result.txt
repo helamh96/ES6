@@ -1,0 +1,11 @@
+almost every console.log will print what is expected
+
+console.log(self.bar);  >> bar
+console.log(this.foo);  >> foo
+
+but the console.log on the IIFE wont print the same, because the context
+
+console.log(self.bar);  >> bar
+console.log(this.foo);  >> undefined
+
+because the IIFE has no foo property defined

@@ -1,0 +1,2 @@
+if we compare both, in the way that if their properties are the same, then 
+those objects are equals, in the other way, no

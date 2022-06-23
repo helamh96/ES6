@@ -1,0 +1,14 @@
+.title{
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 300%;
+    text-align: center;
+}
+
+#change{
+    border: solid;
+    height: 10vh;
+    width: 30vw;
+    text-align: center;
+    font-size: 150%;
+    padding-top: 5%;
+}

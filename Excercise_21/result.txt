@@ -1,0 +1,20 @@
+FROM FIRST BLOCK
+
+"helloWorld"
+//and an error because bar is not defined
+
+FROM SECOND BLOCK
+
+"array is true"
+
+FROM THIRD BLOCK
+
+"counter:  0
+counter:  1
+counter:  2
+counter:  3
+counter:  4"
+
+FROM FOURTH BLOCK
+
+"undefined"

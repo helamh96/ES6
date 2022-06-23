@@ -1,0 +1,12 @@
+true  >> ok
+false >> no
+8/15 >> ok
+‘true’ >> ok
+‘false’ >> ok
+{} >> ok
+[] >> ok
+NaN >> no
+0 >> no
+1 >> ok
+undefined >> no
+null >> no

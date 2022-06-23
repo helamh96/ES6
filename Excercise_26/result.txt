@@ -1,0 +1,15 @@
+the function foo1 is creating a new function inside 
+wich will console.log this.foo when is called but
+it is never called and just return { foo:'bar' }
+
+the function foo2 is doing the same, but it is returning
+{ foo: 'baz' }
+
+so when we run the program the only thing that we will see 
+is:
+
+{ foo:'bar' }
+{ foo: 'baz' }.
+
+even if we run fn() imediately after declare it, it will just 
+print undefined.
