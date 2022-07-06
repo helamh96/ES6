@@ -9,15 +9,13 @@ class Person{
     }
 
     getData(url){
-        let data = JSON.stringify(this)
         let request = new Request(url, {
-            method: "POST",
-            body: data,
+            method: "GET",
             headers: new Headers()
         })
-        fetch(request).then(function() {
-            alert("data sended")
-            })
+        fetch(request).then((res) => {
+            console.log(res.status)
+        })
     }
 }
 
@@ -51,5 +49,5 @@ function savePerson(){
         }
     }
     alert(message)
-    p1.getData("localhost")
+    p1.getData("arch.txt")
 }
