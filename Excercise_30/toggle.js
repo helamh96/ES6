@@ -1,14 +1,13 @@
-let paragraphs = document.getElementsByTagName("p")
+const cont = document.querySelector("#container")
 
-for (let i=0; i< paragraphs.length; i = i+2){
-    paragraphs[i].addEventListener("click", ()=>{showHide(i)})
-}
+cont.addEventListener("click", showHide)
 
-function showHide(i){
-    if (paragraphs[i+1].style.visibility === "hidden"){
-        paragraphs[i+1].style.visibility = "visible"
+function showHide(event){
+    let clicked = event.target
+    if (clicked.nextElementSibling.style.visibility === "visible" && clicked.textContent.includes("Toggle")){
+        clicked.nextElementSibling.style.visibility = "hidden"
     }
     else{
-        paragraphs[i+1].style.visibility = "hidden"
+        clicked.nextElementSibling.style.visibility = "visible"
     }
 }

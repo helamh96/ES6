@@ -7,3 +7,7 @@
 p:nth-of-type(even) {
     visibility: hidden;
 }
+
+p{
+    cursor: pointer;
+}
