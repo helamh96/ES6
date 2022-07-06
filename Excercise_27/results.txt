@@ -1,0 +1,17 @@
+There are no results of summing two objects or two arrays
+or any combination, but we can create a way that
+allows us to emulate the sum, in the way that we can add 
+create a new object that will be populated with all diferent
+properties of the first two objects, and if they have the a
+property equal to another, then sum their values.
+
+const map1 = { "a": 10, "b": 6 }
+const map2 = { "a": 10, "b": 6, "c": 7, "d": 8 }
+
+const merged = Object.entries(map2).reduce((acc, [key, value]) => 
+  // if key is already in map1, add the values, otherwise, create new pair
+  ({ ...acc, [key]: (acc[key] || 0) + value }), { ...map1 });
+
+console.log(merged);
+
+similar with the arrays, but with arrays and object this wont be posible.
