@@ -8,6 +8,7 @@ function customDate(){
 
 modifyDateObject("constantDate", customDate);
 
-let date = new Date();
+let date = new Date()
+date.setUTCHours(15,31,01);
 
-console.log(date.constantDate());
+console.log(date);
