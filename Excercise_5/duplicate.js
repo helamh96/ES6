@@ -1,8 +1,10 @@
-let button = document.querySelector("#btn")
-button.addEventListener("click", duplicate)
+const array = [1,2,3,4]
 
 function duplicate(){
-    let values = document.querySelector("#array-values").value
-    let array = values.split(",")
-    alert(`The duplicated array is: [${array.concat(array)}]`)
+    let arr = this
+    return arr.concat(arr)
 }
+
+Array.prototype.duplicate = duplicate;
+
+console.log(array.duplicate())
