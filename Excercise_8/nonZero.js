@@ -5,12 +5,15 @@ btn.addEventListener("click", orderArray)
 function orderArray(){
     let strElements = document.getElementById("elements").value
     let elemArray = strElements.split(",")
+    let count = 0
     let n = elemArray.length   
     
-    elemArray = elemArray.filter(el =>  el != 0)
-
-    while(elemArray.length < n){
-        elemArray.push(0)
+    for(let i = 0; i<n ; i++){
+        if(elemArray[i] != 0)
+            elemArray[count++] = elemArray[i]
+    }
+    while(count < n){
+        elemArray[count++] = 0
     }
     alert(`The new array is: [${elemArray}]`)
 }
