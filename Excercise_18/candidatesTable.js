@@ -1,3 +1,4 @@
+'use strict';
 let addButton = document.getElementById('adding-button')
 let table = document.querySelector('.candidates')
 let nameCont = document.getElementById('name')
@@ -25,46 +26,52 @@ table.addEventListener('click',tableClicked)
 function tableClicked(event){
     let clicked = event.target
     let cId = clicked.getAttribute('id')
-    let modifyName = document.getElementById('modify-name')
-    let modifyLastName = document.getElementById('modify-last-name')
-    let modifyPhone = document.getElementById('modify-phone')
-    inputArea.style.display = 'none'
-    table.style.display = 'none'
-    modifyArea.style.display = 'block'
-    changeButton.addEventListener('click', saveChanges, {'once':true})
-    fetch('#').then( setData(cId) )
-
-
-    function saveChanges(){
-        let newName = modifyName.value
-        let newLastName = modifyLastName.value
-        let newPhone = modifyPhone.value
-        if (!newName && !newLastName && !newPhone){
-            fetch('#',{method:"DELETE"}).then(()=> {delete fakeData[cId]
-                                                    fillInTable(fakeData)})
-        }else{
-            let newCandidate = {name:{
-                firstname:newName,
-                lastname: newLastName,
-                phone: newPhone
-                }}
-            fetch('#', {
-                method: 'POST',
-                body: newCandidate })
-                       .then(()=>{
-                           fakeData[cId] = newCandidate
-                           fillInTable(fakeData)
-                       })
-        }
-        inputArea.style.display = 'block'
-        table.style.display = 'inline-block'
+    console.log(cId)
+    if(cId==="adding"){
+        inputArea.style.display = "block"
+        table.style.display = 'none'
         modifyArea.style.display = 'none'
-    }
+    }else{
+        let modifyName = document.getElementById('modify-name')
+        let modifyLastName = document.getElementById('modify-last-name')
+        let modifyPhone = document.getElementById('modify-phone')
+        inputArea.style.display = 'none'
+        table.style.display = 'none'
+        modifyArea.style.display = 'block'
+        changeButton.addEventListener('click', saveChanges, {'once':true})
+        fetch('#').then( setData(cId) )
 
-    function setData(cId){
-        modifyName.value = fakeData[cId].name.firstname
-        modifyLastName.value = fakeData[cId].name.lastname
-        modifyPhone.value = fakeData[cId].name.phone
+        function saveChanges(){
+            let newName = modifyName.value
+            let newLastName = modifyLastName.value
+            let newPhone = modifyPhone.value
+            if (!newName && !newLastName && !newPhone){
+                fetch('#',{method:"DELETE"}).then(()=> {delete fakeData[cId]
+                                                        fillInTable(fakeData)})
+            }else{
+                let newCandidate = {name:{
+                    firstname:newName,
+                    lastname: newLastName,
+                    phone: newPhone
+                    }}
+                fetch('#', {
+                    method: 'POST',
+                    body: newCandidate })
+                           .then(()=>{
+                               fakeData[cId] = newCandidate
+                               fillInTable(fakeData)
+                           })
+            }
+            inputArea.style.display = 'none'
+            table.style.display = 'inline-block'
+            modifyArea.style.display = 'none'
+        }
+    
+        function setData(cId){
+            modifyName.value = fakeData[cId].name.firstname
+            modifyLastName.value = fakeData[cId].name.lastname
+            modifyPhone.value = fakeData[cId].name.phone
+        }
     }
 }
 
@@ -97,6 +104,9 @@ function addCandidate(){
         nameCont.value = ''
         lastNameCont.value = ''
         phoneCont.value = ''
+        inputArea.style.display = "none"
+        table.style.display = 'inline-block'
+        modifyArea.style.display = 'none'
     }
 }
 
@@ -112,6 +122,7 @@ function fillInTable(data){
     titLastN.innerHTML = 'Last Name'
     titPhone.innerHTML = 'Phone'
     titAdd.innerHTML = '#Add'
+    titAdd.setAttribute("id","adding")
     titRaw.appendChild(titName)
     titRaw.appendChild(titLastN)
     titRaw.appendChild(titPhone)
