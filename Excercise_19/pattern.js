@@ -1,59 +1,27 @@
-let patternBox = document.getElementById("pattern")
-let testText = document.querySelector(".text")
+const singleChar = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","U","V","W","X","Y","Z",1,2,3,4,5,6,7,8,9,0]
 let btn = document.getElementById("btn")
-let originalText = testText.textContent
 btn.addEventListener("click",searchPattern)
 
-searchPattern()
 function searchPattern(){
-    let pattern = patternBox.value
-    if (!pattern){
-        testText.innerHTML = originalText
-        return
-    }
-    if (pattern ==="*"){
-        let newText = `<span>${originalText}</span>`
-        testText.innerHTML = newText
-        return
+    let p = document.getElementById("pattern").value
+    let text = document.querySelector(".text").textContent
+    console.log(p)
+    if(p.includes("*")){
+        for(let i=0; i<singleChar.length; i++){
+            let newp = p.replace("*",singleChar[i])
+            search(text,newp)
+        }
+    }else{
+        search(text,p)
     }
     
-    let words = [pattern]
-    let wildInds = getAllIndexes(pattern, "*")
-    let createdWords
-    for (let i of wildInds){
-        for (let p of words){
-            createdWords = []
-            for (let l=32; l<=126; l++){
-                let newWord = `${p.substring(0, i)}${String.fromCharCode(l)}${p.substring(i + 1)}`
-                if (originalText.includes(newWord.substring(0,i+1)) && !words.includes(newWord)){
-                    createdWords.push(newWord)
-                }
-            }
-            words = words.concat(createdWords)
-            
-        }
-    }
-    words = words.filter(word=> originalText.includes(word))
+}
 
-    subsWord(words)
-    function subsWord(words){
-        testText.textContent = originalText
-        for (let word of words){
-            let newText = testText.innerHTML
-            newText = newText.replaceAll(word, `<span>${word}</span>`)
-            testText.innerHTML = newText
+function search(text,p){
+    const arr = text.split(" ")
+    for(let a of arr){
+        if(a.match(p) && a.length === p.length){
+            console.log("string "+a+" matches")
         }
-    }
-
-    function getAllIndexes(str, word) {
-        let indexes = []
-        if (word===""){
-            return indexes
-        }
-        let i = -1
-        while ((i = str.indexOf(word, i+1)) != -1){
-            indexes.push(i)
-        }
-        return indexes
     }
 }
