@@ -5,14 +5,11 @@ var candidate = {
        phone: '123-456-7890'
     },
     printName: function(){
-        let fullName = `${this.name.firstname} ${this.name.lastname}`
-        return fullName
+        return `${this.name.firstname} ${this.name.lastname}`
     }
  }
  
-let bodyDiv = document.getElementById("body")
-let infoDiv = bodyDiv.querySelector(".info")
-let [firstDiv, secondDiv] = infoDiv.querySelectorAll("div")
+const [firstDiv, secondDiv] = document.querySelectorAll("div")
 
 firstDiv.textContent = candidate.name.firstname
 secondDiv.textContent = candidate.printName()
