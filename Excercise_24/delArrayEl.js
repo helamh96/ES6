@@ -9,8 +9,8 @@ function applyDel(){
     let el = elToDel.value.split(",")
     origArr = origArr.map((e)=> e.trim())
     el =el.map((e)=> e.trim())
-    let newArray = removeElements(origArr, ...el)
-    alert(`[${newArray}]`)
+    origArr = removeElements(origArr, ...el)
+    alert(`[${origArr}]`)
 }
 
 function removeElements(array, ...elements){
