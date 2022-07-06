@@ -1,15 +1,11 @@
 let table = document.querySelector("table")
-let nodeRaws = document.querySelectorAll("tr")
-let head = nodeRaws[0]
-let btn = document.getElementById("btn")
+let nodeRaws = document.querySelectorAll("tr:not(:first-child)")
+let ageT = document.getElementById("btn")
 
-btn.addEventListener("click", sortByAge)
+ageT.addEventListener("click", sortByAge)
 
 function sortByAge(){
-    let nodes = [].slice.call(nodeRaws, 1)
-    for (let i = 1;  i < nodeRaws.length; i++){
-        nodeRaws[i].remove()
-    }
+    let nodes = [].slice.call(nodeRaws)
     nodes.sort(sortingByAge)
     for (let n of nodes){
         table.appendChild(n)
