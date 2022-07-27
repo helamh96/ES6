@@ -26,3 +26,24 @@
 #adding{
     cursor: pointer;
 }
+
+#delete-button{
+    display: none;
+}
+
+#change-button{
+    display: none;
+}
+
+#cancel-button{
+    display: none;
+}
+
+#adding-button{
+    display: none;
+}
+
+.container{
+    margin-top: 8px;
+    display: flex;
+}
