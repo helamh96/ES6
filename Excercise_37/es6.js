@@ -10,8 +10,7 @@ function exclame(){
 }
 
 function add(...numbers){
-    if (numbers.length === 0) return 0
-    return numbers.reduce((a,b)=>a+b)
+    return numbers.reduce((a,b)=>a+b,0)
 }
 
 strbtn.addEventListener("click", changeString)
@@ -19,7 +18,7 @@ sumbtn.addEventListener("click", sumNumbers)
 
 function changeString(){
     let originalText = document.getElementById("text").value
-    alert(originalText.exclamation())
+    return (originalText.exclamation())
 }
 
 function sumNumbers(){
@@ -27,5 +26,5 @@ function sumNumbers(){
     let arr = originalArr.split(",")
     arr = arr.map( s => s.trim())
     let arrayNumbs = arr.map(n => parseInt(n, 10))
-    alert(add(...arrayNumbs))
+    return (add(...arrayNumbs))
 }
