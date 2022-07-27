@@ -12,14 +12,17 @@ var async = {
                     }())
             }
 
-            Promise.any(calls)
+            Promise.allSettled(calls)
             .then(response => {
                 let finalRes = {}
                 for (let res in response){
                     finalRes[parseInt(res)+1] = response[res]
                 }           
                 callback(finalRes)})
-            } 
+            .catch(err =>{
+                console.error(err)
+            })
+        } 
     }
 
 async.getAll([axCall1, axCall2], callback)
@@ -27,7 +30,7 @@ async.getAll([axCall1, axCall2], callback)
 function callback(responses){
     for (let i in responses){
         let p = document.createElement('p');
-        p.innerHTML = `The type of the result of function ${i} is ${typeof responses[i]}.`;
+        p.innerHTML = `${i}:<${responses[i]}>`;
         res.appendChild(p);
         }
 }
