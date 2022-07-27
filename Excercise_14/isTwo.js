@@ -8,8 +8,8 @@ function checkText(){
     let numValues = strArray.map(n=> parseInt(n,10))
     let check = numValues.includes(2)
     if (check){
-        alert("The function includes 2 as aparemeter.")
+        console.log(true)
     }else{
-        alert("The function does not include 2 as a paremeter.")
+        console.log(false)
     }
 }
