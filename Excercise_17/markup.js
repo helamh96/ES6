@@ -9,7 +9,7 @@ var candidate = {
     }
  }
  
-const [firstDiv, secondDiv] = document.querySelectorAll("div")
+const [firstDiv, secondDiv] = document.querySelectorAll("#body > .info > *")
 
 firstDiv.textContent = candidate.name.firstname
 secondDiv.textContent = candidate.printName()
