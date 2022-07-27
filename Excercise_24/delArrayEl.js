@@ -10,12 +10,14 @@ function applyDel(){
     origArr = origArr.map((e)=> e.trim())
     el =el.map((e)=> e.trim())
     origArr = removeElements(origArr, ...el)
-    alert(`[${origArr}]`)
+    console.log(origArr)
 }
 
 function removeElements(array, ...elements){
     for (let e of elements){
-        array = array.filter(element => element!== e)
+        while(array.includes(e)){
+            array.splice(array.indexOf(e),1)
+        }
     }
     return array
 }
