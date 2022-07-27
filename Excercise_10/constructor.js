@@ -9,9 +9,11 @@ class Person{
     }
 
     getData(url){
+        let myHeaders = new Headers()
+        myHeaders.append(this.name, this.lastName)
         let request = new Request(url, {
             method: "GET",
-            headers: new Headers()
+            headers: myHeaders
         })
         fetch(request).then((res) => {
             console.log(res.status)
