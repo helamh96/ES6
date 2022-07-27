@@ -8,8 +8,8 @@ function checkText(){
     let numValues = strArray.map(n=> parseInt(n,10))
     let check = numValues.includes(2)
     if (check){
-        console.log(true)
+        return true
     }else{
-        console.log(false)
+        return false
     }
 }
