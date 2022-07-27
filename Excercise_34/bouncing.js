@@ -1,18 +1,18 @@
-let btn = document.getElementById("btn")
-let heightT = document.getElementById("height")
+let ball = document.getElementById("ball")
+let g = -0.05
 
-let g = -0.00259
 
-btn.addEventListener("click", startCount)
+ball.addEventListener("click", startCount)
 
 function startCount(){
+    ball.removeEventListener("click",startCount)
     let   v0 = 0,
     s0 = 10,
     t = 0,
     final = 9
  
     let inter = setInterval(fall, 50)
-    btn.style.display = "none"
+
     function fall(){
         let y = position(t,v0,s0)
         if (y<=0){
@@ -23,10 +23,10 @@ function startCount(){
             y=0
             if (final < 0){
                 clearInterval(inter)
-                btn.style.display = "block"
+                ball.addEventListener("click", startCount)
             }  
         }
-        heightT.textContent = `${String(y).substring(0,4)} in.`
+        ball.style.bottom = `${y}cm`
         t++
     }
     
