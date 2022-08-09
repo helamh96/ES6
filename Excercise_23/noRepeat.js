@@ -1,28 +1,59 @@
-let genButton = document.getElementById("genera")
-let textArea = document.querySelector(".text-area")
+const textArea = document.getElementById("text-area")
+const genButton = document.getElementById("genera")
 
 genButton.addEventListener("click", startShowing)
 
-function* random() {
-    let min = document.getElementById("min").value
-    let max = document.getElementById("max").value
-    let i = max - min +1
-    let arr = Array.from(Array(i).keys()).map((idx) => Number(min) + Number(idx))
-    while (i--){
-        yield arr.splice(Math.floor(Math.random()*(i+1)),1)[0]
+min=-2
+max=5
+
+function primeFactors(n) {
+    const factors = [1];
+    let divisor = 2;
+  
+    while (n >= 2) {
+      if (n % divisor == 0) {
+        factors.push(divisor);
+        n = n / divisor;
+      } else {
+        divisor++;
+      }
     }
+    return factors;
 }
 
-let output = random()
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+let count = 0
+let i = max-min+1
+let div = 1
+let pf = primeFactors(i)
+let dif = pf.filter(onlyUnique)
+dif.forEach(e => div=div*e)
+if(i%4==0){
+    div*=4
+}
+if(dif.includes(2)){
+    div=div/2
+}
+div+=1
+let x = Math.floor(Math.random()*i) + min
+let xj = x
+
+function applyRand(xj){
+    let xi = (div*xj+5)%i
+    return xi
+}
+
 
 function startShowing(){
-    genButton.value = "next"
-    let nextV = output.next().value
-    if(nextV!=undefined){
-        textArea.textContent = nextV
+    count++
+    if(count!=i){
+        xj= applyRand(xj)
+        textArea.innerText = xj+min
     }else{
-        textArea.textContent = "All numbers have been displayed, click generate for start again"
-        genButton.value = "Generate"
-        output = random()
+        textArea.innerText = "All Elements have been displayed"
+        genButton.disabled = true
     }
 }
