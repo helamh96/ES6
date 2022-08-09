@@ -27,9 +27,7 @@ table.addEventListener('click',tableClicked)
 
 function tableClicked(event){
     let clicked = event.target
-    let cId = clicked.getAttribute('id')
-    console.log(cId)
-    
+    let cId = clicked.getAttribute('id') 
 
     if(cId==="adding"){
         inputArea.style.display = "block"
@@ -51,6 +49,7 @@ function tableClicked(event){
         deleteButton.style.display = "block"
         cancelButton.style.display = "block"
         changeButton.style.display = "block"
+        cancelButton.addEventListener("click",cancelEdit)
         deleteButton.addEventListener("click", deleteUser,{once: true})
         changeButton.addEventListener('click', saveChanges, {once: true})
     }   
@@ -72,7 +71,6 @@ function tableClicked(event){
             fakeData[cId] = newCandidate
             fillInTable(fakeData)
             })
-        console.log(fakeData)
 
         nameCont.value = ''
         lastNameCont.value = ''
@@ -141,6 +139,13 @@ function addCandidate(){
         lastNameCont.value = ''
         phoneCont.value = ''
         inputArea.style.display = "none"
+        table.style.display = 'inline-block'
+        modifyArea.style.display = 'none'
+    }else{
+        nameCont.value = ''
+        lastNameCont.value = ''
+        phoneCont.value = ''
+        inputArea.style.display = 'none'
         table.style.display = 'inline-block'
         modifyArea.style.display = 'none'
     }
