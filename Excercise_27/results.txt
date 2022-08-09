@@ -5,9 +5,10 @@ When we execute the operations in the array for each case we obtain:
 3.- []+{}  ------->  [object Object]
 4.- []+[]  ------->  
 
-It means that the result that we are obtaining is an Object (the datatype),
-I would spect it to return something like
+It means that the result that we are obtaining its string representation,
+so for the case of [] it string representation is an empty string,
+ans so
 
-4.- []+[]  -------> [object Array][object Array] 
+4.- []+[]  -------> 
 
-but for some reason the REPL doesn't show anything.
+is the "sum" of those empty strings
