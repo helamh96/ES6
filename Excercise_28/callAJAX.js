@@ -30,7 +30,7 @@ async.getAll([axCall1, axCall2], callback)
 function callback(responses){
     for (let i in responses){
         let p = document.createElement('p');
-        p.innerHTML = `${i}:<${responses[i]}>`;
+        p.innerHTML = `${i}:<${this}>`;
         res.appendChild(p);
         }
 }
