@@ -19,18 +19,15 @@ var async = {
                     finalRes[parseInt(res)+1] = response[res]
                 }           
                 callback(finalRes)})
-            .catch(err =>{
-                console.error(err)
-            })
         } 
     }
 
 async.getAll([axCall1, axCall2], callback)
 
 function callback(responses){
-    for (let i in responses){
+    Object.keys(responses).forEach(i => {
         let p = document.createElement('p');
-        p.innerHTML = `${i}:<${this}>`;
+        p.innerText = `${i}:<${responses[i].status}>`;
         res.appendChild(p);
-        }
+    })
 }
