@@ -9,14 +9,16 @@ class Person{
     }
 
     getData(url){
-        url= url+`/?name=${this.name}&lastName=${this.lastName}`
-        let request = new Request(url, {
-            method: "GET",
-            headers: new Headers
-        })
-        fetch(request).then((res) => {
-            console.log(res.status)
-        })
+        url = url + `/?name=${this.name}&lastName=${this.lastName}`
+        let params = new URLSearchParams(url.slice(22))
+        if(params.get("name")==this.name && params.get("lastName")==this.lastName){
+            var request = new Request(url, {
+                method: "GET"
+            })
+        }else{
+            throw new Error("URL is nop properly escaped")
+        }
+        fetch(request).then((res) => res)
     }
 }
 
@@ -50,5 +52,5 @@ function savePerson(){
         }
     }
     alert(message)
-    p1.getData("arch.txt")
+    p1.getData("http://127.0.0.1:5500")
 }
