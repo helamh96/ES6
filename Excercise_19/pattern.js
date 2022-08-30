@@ -4,23 +4,49 @@ btn.addEventListener("click",searchPattern)
 function searchPattern(){
     let p = document.getElementById("pattern").value
     let text = document.querySelector(".text").textContent
-    search(text,p)
+    console.log(findMatchingText(text,p))
 }
 
-function search(text,p){
-    const arr = text.split(" ")
-    for(let a of arr){
-        let cont = 0
-        for(let j=0; j<p.length; j++){
-            if(p.charAt(j)!="*"){
-                if(a.charAt(j)==p.charAt(j)){
-                    cont++
-                }
-            }else{cont++}
-        }
-        if(cont==a.length && cont==p.length ){
-            console.log(`The string "${a}" matches with the pattern`)
-        }    
+function findMatchingText(text, p){
+    const firstString = p.replace(/\*/g,"")[0]
+    if(p[0] != firstString){
+        var newVal = p.indexOf(firstString)
+    }else{
+        var newVal = 0
     }
-    
+    if(text.indexOf(firstString)< newVal  || text.indexOf(firstString)== -1){
+        return "there are no matches"
+    }else{
+        let indices = [];
+        for(let i=0; i<text.length;i++) {
+            if (text[i] === p[newVal]) indices.push(i);
+        }
+        console.log(indices)
+        let count =-1;
+        indices.forEach(e => {
+            let index = Number(e)
+            for(let i=0; i<newVal+1; i++){
+                if(text[index-i]==p[newVal-i] || p[newVal-i]=="*"){
+                    count++
+                }
+            }
+            for(let i=0; i<p.length-newVal; i++){
+                if(text[index+i]==p[newVal+i] || p[newVal+i]=="*"){
+                    count++
+                }
+            }
+            if(count === p.length){
+                return true
+            }else{
+                count = -1;
+                return true
+            }
+        });
+        
+        if(count == p.length){
+            return true
+        }else{
+            return false
+        }
+    }
 }
