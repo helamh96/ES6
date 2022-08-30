@@ -9,6 +9,7 @@ let modifyArea = document.querySelector('.modify')
 let changeButton = document.getElementById('change-button')
 const deleteButton = document.getElementById("delete-button")
 const cancelButton = document.getElementById("cancel-button")
+let actualCid;
 
 var fakeData = {
     1:{name: {
@@ -23,12 +24,15 @@ fetch('#').then(fillInTable(fakeData))
 
 
 addButton.addEventListener('click', addCandidate)
+cancelButton.addEventListener("click",cancelEdit)
+deleteButton.addEventListener("click", deleteUser)
+changeButton.addEventListener('click', saveChanges)
+
 table.addEventListener('click',tableClicked)
 
 function tableClicked(event){
     let clicked = event.target
     let cId = clicked.getAttribute('id') 
-
     if(cId==="adding"){
         inputArea.style.display = "block"
         table.style.display = 'none'
@@ -37,87 +41,81 @@ function tableClicked(event){
         cancelButton.style.display = "block"
         cancelButton.addEventListener("click",cancelEdit)
     }else if(cId!=null){
+        actualCid = cId
         let modifyName = document.getElementById('modify-name')
         let modifyLastName = document.getElementById('modify-last-name')
         let modifyPhone = document.getElementById('modify-phone')
-        modifyName.value = fakeData[cId].name.firstname
-        modifyLastName.value = fakeData[cId].name.lastname
-        modifyPhone.value = fakeData[cId].name.phone
+        modifyName.value = fakeData[actualCid].name.firstname
+        modifyLastName.value = fakeData[actualCid].name.lastname
+        modifyPhone.value = fakeData[actualCid].name.phone
         inputArea.style.display = 'none'
         table.style.display = 'none'
         modifyArea.style.display = 'block'
         deleteButton.style.display = "block"
         cancelButton.style.display = "block"
         changeButton.style.display = "block"
-        cancelButton.addEventListener("click",cancelEdit)
-        deleteButton.addEventListener("click", deleteUser,{once: true})
-        changeButton.addEventListener('click', saveChanges, {once: true})
     }   
-
-    function saveChanges(){
-        let modifyName = document.getElementById('modify-name')
-        let modifyLastName = document.getElementById('modify-last-name')
-        let modifyPhone = document.getElementById('modify-phone')
-        let newName = modifyName.value
-        let newLastName = modifyLastName.value
-        let newPhone = modifyPhone.value
-        let newCandidate = {name:{
-            firstname:newName,
-            lastname: newLastName,
-            phone: newPhone
-            }}
-        fetch('#', {method:'PATCH',body:JSON.stringify(newCandidate) })
-        .then(()=>{
-            fakeData[cId] = newCandidate
-            fillInTable(fakeData)
-            })
-
-        nameCont.value = ''
-        lastNameCont.value = ''
-        phoneCont.value = ''
-        inputArea.style.display = 'none'
-        table.style.display = 'inline-block'
-        modifyArea.style.display = 'none'
-        changeButton.style.display = "none"
-        deleteButton.style.display = "none"
-        cancelButton.style.display = "none"
-    }
-
-    function deleteUser(){
-        nameCont.value = ''
-        lastNameCont.value = ''
-        phoneCont.value = ''
-        fetch('#',{method:"DELETE"}).then(()=> {delete fakeData[cId]
-            fillInTable(fakeData)})
-        inputArea.style.display = 'none'
-        table.style.display = 'inline-block'
-        modifyArea.style.display = 'none'
-        changeButton.style.display = "none"
-        deleteButton.style.display = "none"
-        cancelButton.style.display = "none"
-    }
-
-    function cancelEdit(){
-        nameCont.value = ''
-        lastNameCont.value = ''
-        phoneCont.value = ''
-        inputArea.style.display = 'none'
-        table.style.display = 'inline-block'
-        modifyArea.style.display = 'none'
-        addButton.style.display = "none"
-        changeButton.style.display = "none"
-        cancelButton.style.display = "none"
-        deleteButton.style.display = "none"
-    } 
 }
 
+function saveChanges(){
+    let modifyName = document.getElementById('modify-name')
+    let modifyLastName = document.getElementById('modify-last-name')
+    let modifyPhone = document.getElementById('modify-phone')
+    let newName = modifyName.value
+    let newLastName = modifyLastName.value
+    let newPhone = modifyPhone.value
+    let newCandidate = {name:{
+        firstname:newName,
+        lastname: newLastName,
+        phone: newPhone
+        }}
+    fetch('#', {method:'PATCH',body:JSON.stringify(newCandidate) })
+    .then(()=>{
+        fakeData[actualCid] = newCandidate
+        fillInTable(fakeData)
+        })
+    nameCont.value = ''
+    lastNameCont.value = ''
+    phoneCont.value = ''
+    inputArea.style.display = 'none'
+    table.style.display = 'inline-block'
+    modifyArea.style.display = 'none'
+    changeButton.style.display = "none"
+    deleteButton.style.display = "none"
+    cancelButton.style.display = "none"
+}
 
+function deleteUser(){
+    nameCont.value = ''
+    lastNameCont.value = ''
+    phoneCont.value = ''
+    fetch('#',{method:"DELETE"}).then(()=> {delete fakeData[actualCid]
+        fillInTable(fakeData)})
+    inputArea.style.display = 'none'
+    table.style.display = 'inline-block'
+    modifyArea.style.display = 'none'
+    changeButton.style.display = "none"
+    deleteButton.style.display = "none"
+    cancelButton.style.display = "none"
+}
+
+function cancelEdit(){
+    nameCont.value = ''
+    lastNameCont.value = ''
+    phoneCont.value = ''
+    inputArea.style.display = 'none'
+    table.style.display = 'inline-block'
+    modifyArea.style.display = 'none'
+    addButton.style.display = "none"
+    changeButton.style.display = "none"
+    cancelButton.style.display = "none"
+    deleteButton.style.display = "none"
+} 
 
 function addCandidate(){
     let textName = nameCont.value
     let textLastName = lastNameCont.value
     let textPhone = phoneCont.value
-
     if (textName || textLastName || textPhone){
         let sendData = {name:
                             {
@@ -152,7 +150,6 @@ function addCandidate(){
     addButton.style.display = "none"
     cancelButton.style.display = "none"
 }
-
 
 function fillInTable(data){
     table.innerHTML = ''
