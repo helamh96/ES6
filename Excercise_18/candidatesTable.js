@@ -64,13 +64,15 @@ function saveChanges(){
     let newName = modifyName.value
     let newLastName = modifyLastName.value
     let newPhone = modifyPhone.value
-    let newCandidate = {name:{
-        firstname:newName,
-        lastname: newLastName,
-        phone: newPhone
+    let newCandidate = {id:actualCid,
+        name:{
+            firstname: newName,
+            lastname: newLastName,
+            phone: newPhone
         }}
     fetch('#', {method:'PATCH',body:JSON.stringify(newCandidate) })
     .then(()=>{
+        console.log(body)
         fakeData[actualCid] = newCandidate
         fillInTable(fakeData)
         })
@@ -89,7 +91,7 @@ function deleteUser(){
     nameCont.value = ''
     lastNameCont.value = ''
     phoneCont.value = ''
-    fetch('#',{method:"DELETE"}).then(()=> {delete fakeData[actualCid]
+    fetch('#',{method:"DELETE", body: JSON.stringify({id:actualCid})}).then(()=> {delete fakeData[actualCid]
         fillInTable(fakeData)})
     inputArea.style.display = 'none'
     table.style.display = 'inline-block'
