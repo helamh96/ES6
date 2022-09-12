@@ -8,17 +8,13 @@ class Person{
         return `${this.name} ${this.lastName}`
     }
 
-    getData(url){
-        url = url + `/?name=${this.name}&lastName=${this.lastName}`
-        let params = new URLSearchParams(url.slice(22))
-        if(params.get("name")==this.name && params.get("lastName")==this.lastName){
-            var request = new Request(url, {
-                method: "GET"
-            })
-        }else{
-            throw new Error("URL is nop properly escaped")
-        }
-        fetch(request).then((res) => res)
+    getData(url,callback){
+        let params = new URLSearchParams(url.search)
+        params.append("name",this.name)
+        params.append("lastName", this.lastName)
+        url = `${url}?${params}`
+        let request = new Request(url, {method: "GET"})
+        fetch(request).then(res => callback(res))
     }
 }
 
@@ -33,6 +29,10 @@ class Medic extends Person{
 let savingButton = document.getElementById("saving-btn")
 
 savingButton.addEventListener("click", savePerson)
+
+function exampleCallback(arg){
+    console.log(arg.status)
+}
 
 function savePerson(){
     let name = document.getElementById("name").value
@@ -52,5 +52,5 @@ function savePerson(){
         }
     }
     alert(message)
-    p1.getData("http://127.0.0.1:5500")
+    p1.getData("http://127.0.0.1:5500",exampleCallback)
 }
