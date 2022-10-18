@@ -5,7 +5,6 @@ const restartButton = document.getElementById("restart")
 restartButton.addEventListener("click",restart)
 genButton.addEventListener("click", setVal,{once:true})
 genButton.addEventListener("click", show)
-let num 
 
 class Random{
     constructor(max,min,s,a,c,m,i){
@@ -18,21 +17,15 @@ class Random{
         this.i = i
     }
 
-    *random(s,a,c,m,i){
+    *random(s,a,c,m,i,min){
         let count = 0
-        let ranVals = []
         while(count != i){
             let xi = (a*s + c)%(2**m)
             s = xi
             if(xi<i){
-                ranVals.push(xi)
+                yield (xi + min)
                 count++
             }
-        }
-        count = 0
-        while(count != this.i){ 
-            yield ranVals[count] + this.min
-            count ++
         }
     }
 }
@@ -50,7 +43,7 @@ function setVal(){
     let c = 3**(Math.floor(m/2))
     let s = Math.floor(Math.random()*(i-2)+1)
     num = new Random(max,min,s,a,c,m,i)
-    num = num.random(s,a,c,m,i)
+    num = num.random(s,a,c,m,i,min)
 }
 
 function show(){
