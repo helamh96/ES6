@@ -9,12 +9,11 @@ class Person{
     }
 
     getData(url,callback){
-        let params = new URLSearchParams(url.search)
-        params.append("name",this.name)
-        params.append("lastName", this.lastName)
-        url = `${url}?${params}`
+        url = new URL(url)
+        url.searchParams.set("name",this.name)
+        url.searchParams.set("lastName", this.lastName)
         let request = new Request(url, {method: "GET"})
-        fetch(request).then(res => callback(res))
+        fetch(request).then(callback)
     }
 }
 
