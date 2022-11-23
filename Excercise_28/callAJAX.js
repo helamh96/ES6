@@ -14,20 +14,19 @@ var async = {
 
             Promise.allSettled(calls)
             .then(response => {
-                let finalRes = {}
+                finalRes = {}
                 for (let res in response){
                     finalRes[parseInt(res)+1] = response[res]
-                }           
-                callback(finalRes)})
+                }
+            })
+            .finally(() => {
+                let newCallback = callback.bind(finalRes)
+                newCallback()
+            })}
         } 
-    }
 
 async.getAll([axCall1, axCall2], callback)
 
-function callback(responses){
-    Object.keys(responses).forEach(i => {
-        let p = document.createElement('p');
-        p.innerText = `${i}:<${responses[i].status}>`;
-        res.appendChild(p);
-    })
+function callback(){
+    return this
 }
