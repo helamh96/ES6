@@ -1,7 +1,3 @@
-const res = document.getElementById("result")
-const axCall1 = "https://jsonplaceholder.typicode.com/users"
-const axCall2 = "https://jsonplaceholder.typicode.com/todos"
-
 var async = {
     getAll: function ( urlArray, callback){ 
             let calls = []
@@ -25,8 +21,9 @@ var async = {
             })}
         } 
 
-async.getAll([axCall1, axCall2], callback)
+async.getAll(["https://jsonplaceholder.typicode.com/users", "https://jsonplaceholder.typicode.com/todos"], callback)
 
 function callback(){
+    console.log(this)
     return this
 }
