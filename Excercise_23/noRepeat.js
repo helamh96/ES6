@@ -1,70 +1,33 @@
-const textArea = document.getElementById("text-area")
-const genButton = document.getElementById("generate")
-const restartButton = document.getElementById("restart")
-
-restartButton.addEventListener("click",restart)
-genButton.addEventListener("click", setVal,{once:true})
-genButton.addEventListener("click", show)
-
 class Random{
-    constructor(max,min,s,a,c,m,i){
+    constructor(max,min){
         this.max = max
         this.min = min
-        this.s = s
-        this.a = a
-        this.c = c
-        this.m = m
-        this.i = i
+        this.i = max - min + 1 
+        this.s = Math.floor(Math.random() * (max - min + 1 - 2) + 1 )
+        this.m = Math.ceil(Math.log2(max - min + 1))
+        this.a = 5
+        this.c = 3**(Math.floor(this.m/2))
     }
 
-    *random(s,a,c,m,i,min){
+    *myRandom() {
         let count = 0
-        while(count != i){
-            let xi = (a*s + c)%(2**m)
-            s = xi
-            if(xi<i){
-                yield (xi + min)
+        while(count != this.i){
+            let xi = (this.a*this.s + this.c)%(2**this.m)
+            this.s = xi
+            if(xi<this.i){
+                yield (xi + this.min)
                 count++
             }
         }
     }
 }
 
-function setVal(){
-    let max = Number(document.getElementById("max").value)
-    let min = Number(document.getElementById("min").value)
-    let i = max - min + 1 
-    let m = Math.ceil(Math.log2(i))
-    if(m<=4){
-        var a = 1
-    }else{
-        var a = 1 + Math.floor(4*m)
-    }
-    let c = 3**(Math.floor(m/2))
-    let s = Math.floor(Math.random()*(i-2)+1)
-    num = new Random(max,min,s,a,c,m,i)
-    num = num.random(s,a,c,m,i,min)
-}
 
-function show(){
-    let next = num.next().value
-    if(next !== undefined){
-        textArea.innerText = next
-    }else{
-        count = 0
-        textArea.innerText = "All numbers have been displayed"
-        genButton.style.display = "none"
-        restartButton.style.display = "inline"
-    }
-}
+const customRand = new Random(10, 6);
+const generator = customRand.myRandom();
+let output = generator.next();
 
-
-function restart(){
-    genButton.removeEventListener("click", setVal)
-    genButton.removeEventListener("click", show)
-    textArea.innerText = ""
-    genButton.style.display = "inline"
-    restartButton.style.display = "none"
-    genButton.addEventListener("click", setVal,{once:true})
-    genButton.addEventListener("click", show)
+while (!output.done) {
+    console.log(output.value);
+    output = generator.next();
 }
