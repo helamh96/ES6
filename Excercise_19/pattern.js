@@ -22,52 +22,42 @@ function findMatchingText(text, p){
             let i = 0
             let matches = []
             do{
-                if(text[i]!=undefined && text[i + size]!=undefined){
-                    console.log(text.slice(i, i + size))
-                    matches.push(text.slice(i, i + size))  
+                if(text[i]!==undefined && text[i+size-1]!==undefined){
+                    matches.push(text.slice(i, i + size))
                 }
-                i++
-            }while(i <= text.length-size)
-            if(matches.length>0){
-                return matches
-            }
-            return null
+                i = i+size
+            }while(i < text.length-size+1)
+            return matches
         }else{
             return null
         }
     }else{
-        let count = 1;
+        
         let word = p[newVal]
         let indices = [];
         for(let i=0; i<text.length;i++) {
             if (text[i] === p[newVal]) indices.push(i);
         }
-        console.log(indices)
-        indices.forEach(e => {
+        let count = 1;
+        indices.every(e => {
             let index = Number(e)
             for(let i=1; i<newVal+1; i++){
-                if(text[index-i] != undefined){
-                    if(text[index-i]==p[newVal-i] || p[newVal-i]==="*"){
-                        console.log(text[index-i])
-                        count++
-                        word = text[index-i] + word
-                    }
+                if(text[index-i]==p[newVal-i] || (p[newVal-i]=="*" && text[index-i] != undefined)){
+                    count++
+                    word = text[index-i] + word
                 }
             }
             for(let i=1; i<p.length-newVal; i++){
-                if(text[index+i] != undefined){
-                    if(text[index+i]==p[newVal+i] || p[newVal+i]==="*"){
-                        console.log(text[index-i])
-                        count++
-                        word = word + text[index+i] 
-                    }
+                if(text[index+i]==p[newVal+i] || (p[newVal+i]=="*" && text[index+i] != undefined)){
+                    count++
+                    word = word + text[index+i] 
                 }
             }
             if(count === p.length){
-                console.log(p)
                 matches.push(word)
                 word = p[newVal]
                 count = 1
+                return false;
             }else{
                 word = p[newVal]
                 count = 1;
