@@ -1,16 +1,16 @@
+'use strict'
+
 var async = {
     getAll: function ( urlArray, callback){ 
             let calls = []
-            
+            let finalRes = {}
             for (let url in urlArray){
                 calls.push(function(){
                     return fetch(urlArray[url]).then(data => data.json())
                     }())
             }
-
             Promise.allSettled(calls)
             .then(response => {
-                finalRes = {}
                 for (let res in response){
                     finalRes[parseInt(res)+1] = response[res]
                 }
