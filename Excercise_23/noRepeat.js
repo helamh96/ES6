@@ -1,5 +1,5 @@
 class Random{
-    constructor(max,min){
+    constructor(min, max){
         this.max = max
         this.min = min
         this.i = max - min + 1 
@@ -23,7 +23,7 @@ class Random{
 }
 
 
-const customRand = new Random(10, 6);
+const customRand = new Random(6, 10);
 const generator = customRand.myRandom();
 let output = generator.next();
 
