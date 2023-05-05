@@ -33,11 +33,12 @@ function findMatchingText(text, p){
             return null
         }
     }else{
-        
         let word = p[newVal]
         let indices = [];
         for(let i=0; i<text.length;i++) {
-            if (text[i] === p[newVal]) indices.push(i);
+            if (text[i] === p[newVal]){
+                indices.push(i);
+            }
         }
         let count = 1;
         indices.every(e => {
@@ -56,10 +57,11 @@ function findMatchingText(text, p){
             }
             if(count === p.length){
                 matches.push(word)
-                return true
+                return false;
             }else{
                 word = p[newVal]
                 count = 1;
+                return true;
             }
         });
     }
