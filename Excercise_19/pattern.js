@@ -24,10 +24,11 @@ function findMatchingText(text, p){
             do{
                 if(text[i]!==undefined && text[i+size-1]!==undefined){
                     matches.push(text.slice(i, i + size))
+                    break
                 }
                 i = i+size
             }while(i < text.length-size+1)
-            return matches
+            return matches.length===0 ? null : matches
         }else{
             return null
         }
@@ -55,15 +56,12 @@ function findMatchingText(text, p){
             }
             if(count === p.length){
                 matches.push(word)
-                word = p[newVal]
-                count = 1
-                return false;
+                return true
             }else{
                 word = p[newVal]
                 count = 1;
             }
         });
     }
-    if(matches == []) return null
-    else return matches
+    return matches.length===0 ? null : matches
 }
