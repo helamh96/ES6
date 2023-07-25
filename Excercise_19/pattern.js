@@ -41,6 +41,7 @@ function match(string, pattern){
                 if(!isFound){
                     if(compare(el,pattern)){
                         match = el
+                        isFound = true
                     }
                 }
                 
@@ -49,3 +50,8 @@ function match(string, pattern){
         }
     }
 }
+
+//tests
+
+console.log(match("abcdec","**"))
+console.log(match("abcdec","**c"))
